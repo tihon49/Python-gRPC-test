@@ -6,24 +6,31 @@
           rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
           crossorigin="anonymous">
+    <style>
+        .container {
+            padding: 20px;
+        }
+    </style>
     <title>Online Books For You</title>
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-10 offset-1">
-            <h1>Mystery books you may like</h1>
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-10 offset-1">
+                <h1>Mystery books you may like</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <ul>
+                    {% for book in recommendations %}
+                        <li><a href="{{ url_for('book_detail', book_id=book.id) }}">{{ book.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <ul>
-                {% for book in recommendations %}
-                    <li><a href="{{ url_for('book_detail', book_id=book.id) }}">{{ book.title }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-</div>
+{% endblock %}
 </body>
 </html>

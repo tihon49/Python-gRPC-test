@@ -28,5 +28,5 @@ def book_detail(book_id):
         book_response = recommendations_client.BookDetail(book_request)
     except Exception as error:
         print(error, flush=True)
-    return render_template('book.html', book=book_response)
+    return render_template('book.html', book_id=book_response.id, book_title=book_response.title)
     # TODO: расширить модель book.
