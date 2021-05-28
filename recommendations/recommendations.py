@@ -28,7 +28,11 @@ class RecommendationService(recommendations_pb2_grpc.RecommendationsServicer):
         return RecommendationResponse(recommendations=books_to_recommend)
 
     def BookDetail(self, request, context):
-        book = [book for book in books_by_category[0] if book.id == request.data][0]
+        for category_id in books_by_category:
+            for b in books_by_category[category_id]:
+                if b.id == request.data:
+                    book = b
+                    break
         return BookRecommendation(id=book.id, title=book.title)
         # TODO: проверку/валидацию данных для return
 

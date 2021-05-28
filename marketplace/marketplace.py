@@ -16,7 +16,7 @@ recommendations_client = RecommendationsStub(recommendations_channel)
 @app.route("/")
 def render_homepage():
     """домашняя страница"""
-    recommendations_request = RecommendationRequest(user_id=1, category=BookCategory.MYSTERY, max_results=3)
+    recommendations_request = RecommendationRequest(user_id=1, category=BookCategory.SCIENCE_FICTION, max_results=3)
     recommendations_response = recommendations_client.Recommend(recommendations_request)
     return render_template("homepage.html", recommendations=recommendations_response.recommendations)
 
@@ -26,7 +26,8 @@ def book_detail(book_id):
     book_request = Data(data=book_id)
     try:
         book_response = recommendations_client.BookDetail(book_request)
+        return render_template('book.html', book_id=book_response.id, book_title=book_response.title)
     except Exception as error:
         print(error, flush=True)
-    return render_template('book.html', book_id=book_response.id, book_title=book_response.title)
+    return render_template('book.html', book_id=book_id)
     # TODO: расширить модель book.
