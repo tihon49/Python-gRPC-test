@@ -20,3 +20,10 @@ def render_homepage():
     recommendations_request = RecommendationRequest(user_id=1, category=BookCategory.MYSTERY, max_results=3)
     recommendations_response = recommendations_client.Recommend(recommendations_request)
     return render_template("homepage.html", recommendations=recommendations_response.recommendations)
+
+
+@app.route("/book/<int:book_id>")
+def book_detail(book_id):
+    return render_template('book.html', book_id=book_id)
+# TODO: сделать функцию запроса в .proto для детального отображения
+# TODO: расширить модель book.
