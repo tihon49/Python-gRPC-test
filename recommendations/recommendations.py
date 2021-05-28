@@ -27,6 +27,11 @@ class RecommendationService(recommendations_pb2_grpc.RecommendationsServicer):
 
         return RecommendationResponse(recommendations=books_to_recommend)
 
+    def BookDetail(self, request, context):
+        book = [book for book in books_by_category[0] if book.id == request.data][0]
+        return BookRecommendation(id=book.id, title=book.title)
+        # TODO: проверку/валидацию данных для return
+
 
 def serve():
     """запускает сетевой сервер и использует класс микросервиса для обработки запросов"""

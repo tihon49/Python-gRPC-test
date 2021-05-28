@@ -26,6 +26,15 @@ message RecommendationResponse {
 }
 
 
+message Data {
+    int32 data = 1;
+}
+
+
 service Recommendations {
     rpc Recommend (RecommendationRequest) returns (RecommendationResponse);
+    rpc BookDetail (Data) returns (BookRecommendation);
 }
+
+// компилировать данный файл (предварительно зайдя в терминале в папку "recommendations"):
+// python -m grpc_tools.protoc -I ../protobufs --python_out=. --grpc_python_out=. ../protobufs/recommendations.proto
